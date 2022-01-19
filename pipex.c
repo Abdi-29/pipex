@@ -6,7 +6,7 @@
 /*   By: abba <abba@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/14 14:36:32 by abba          #+#    #+#                 */
-/*   Updated: 2021/12/17 15:58:09 by abba          ########   odam.nl         */
+/*   Updated: 2022/01/19 10:18:20 by abba          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_esec(char *argv, char **envp)
 	ft_final(ss_path, s_path, cmd_split, envp);
 	write(2, argv, ft_strlen(argv));
 	ft_putendl_fd(": command not found", 2);
-	exit (127);
+	exit(127);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -101,7 +101,11 @@ int	main(int argc, char **argv, char **envp)
 	int		infile;
 	int		outfile;
 
-	(void)argc;
+	if (argc != 5)
+	{
+		ft_putendl_fd("argc have to be 5", 2);
+		exit(1);
+	}
 	infile = open(argv[1], O_RDONLY);
 	outfile = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (infile < 0 || outfile < 0)
@@ -114,5 +118,5 @@ int	main(int argc, char **argv, char **envp)
 		ft_child_process(fd, infile, argv, envp);
 	else
 		ft_parent_process(fd, outfile, argv, envp);
-	exit (0);
+	exit(0);
 }
